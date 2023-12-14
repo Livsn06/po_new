@@ -1,0 +1,538 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Poppins&display=swap');
+
+/*! ALL TAGS */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*! COLORS */
+:root {
+    --primary: #25B4B2;
+    --secondary: #006D68;
+    --white: #ffffff;
+    --black: #000000;
+    --hover: #E3FFFF;
+  }
+  
+
+body{
+    /* padding: 2px; */
+    width: 100%;
+    position: relative;
+}
+.outer-body{
+    /* background-color: #00000036; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    overflow: hidden;
+}
+
+.right-sec{
+    /* background-color: #25b4b265; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* navigation (NOTIFICATION/ USER) */
+.navigation{
+    background-color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    box-shadow: 0px 10px 13px -4px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 0px 10px 13px -4px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 10px 13px -4px rgba(0,0,0,0.35);
+}
+
+.navigation > *{
+    margin: 0 10px;
+}
+
+/* notification */
+.notif{
+    outline: none;
+    border: 0;
+    background-color: var(--secondary);
+    padding: 20px 12px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+/* NOTIF ICON */
+.notif >*{
+    color: white    ;
+}
+
+/* user */
+.user{
+    padding: 5px 0;
+    background-color: var(--secondary);    
+    outline: none;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 15%;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.user h1{
+    color: white;
+}
+.user img{
+    border:  1px solid red;
+    border-radius: 100%;
+    width: 20%;
+    height: auto;
+    object-fit: contain;
+}
+/* user icon */
+.user > *{
+    color: white;
+}
+
+/* contents dynamic (NOTIFICATION/ USER) */
+.inner-contents{
+    overflow: auto;
+    padding: 40px;
+    
+}
+
+.inner-contents::-webkit-scrollbar {
+    background: #fff;
+    width: 10px;
+    height: 15px; 
+}
+.inner-contents::-webkit-scrollbar-thumb {
+    background: #959595;
+
+}
+
+/* ! BOARD CSS */
+#board{
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    /* background-color: #5eca00; */
+}
+#board > *{
+    margin: 10px 0;
+}
+.sorter{
+    /* background-color: orange; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+
+
+.cards{
+    /* background-color: green; */
+    display: flex;
+    justify-content:flex-start;
+    height: max-content;
+    flex-wrap: wrap;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.cards > *{
+    background-color: white;
+    margin: 0.6%;
+    padding: 5px;
+    width: 23.8%;
+    height: 140px;
+    border-radius: 10px;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    background-repeat: none;
+    background-clip: border-box;
+    box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    -webkit-box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    -moz-box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    box-shadow: 0px 80px 68px 15px rgba(0,0,0,0.53) inset;
+-webkit-box-shadow: 0px 80px 68px 15px rgba(0,0,0,0.53) inset;
+-moz-box-shadow: 0px 80px 68px 15px rgba(0,0,0,0.53) inset;
+transition: all 300ms ease-in-out;
+}
+
+.cards > * button{
+    position: relative  ;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    padding: 5px;
+
+    color: white;
+    font-size: medium;
+    font-weight: 600;
+}
+
+
+.cards div:hover{
+    transition: all 300ms ease-in-out;
+    opacity: 70%;
+}
+
+#exisproj{
+    position: relative;
+}
+
+#exisproj .star{
+    z-index: 1;
+    position: absolute;
+    background-color: #0000004f;
+    border-radius: 100%;
+    width: fit-content;
+    padding: 5px;
+    bottom: 10%;
+    right: 5%;
+    cursor: pointer;
+}
+#exisproj .star:hover{
+    transition: all 300ms ease-in-out;
+    background-color: rgb(94, 94, 94);
+}
+
+
+
+
+
+#create-proj{
+    
+   border: 2px solid var(--secondary);
+    box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    -webkit-box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    -moz-box-shadow: 0px -3px 11px 0px rgba(0,0,0,0.49);
+    box-shadow: 0px 1px 0px -200px rgba(0,0,0,0) inset;
+    -webkit-box-shadow: 0px 1px 0px -200px rgba(0,0,0,0) inset;
+    -moz-box-shadow: 0px 1px 0px -200px rgba(0,0,0,0) inset;
+    transition: all 300ms ease-in-out;
+}
+
+.cards #create-proj:hover{
+    transition: all 300ms ease-in-out;
+    background-color: #E3FFFF;
+}
+
+
+#newproj{
+    color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#newproj > *{
+    padding: 15px 0;    
+    color: var(--secondary);
+}
+
+
+
+/* ! SIDEBAR */
+.left-sec{
+    background-color: var(--primary);
+    height: 100vh;
+    width: 25%;
+}
+
+
+.sidebar > * {
+    width: 100%;
+}
+.logo {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    padding: 20px;
+    cursor: pointer;
+}
+.logo img{
+    width: 100%;
+}
+.menu{
+   margin: 20px 0;
+}
+.menu > * {
+    width: 100%;
+}
+
+.menu small{
+    color: var(--white);
+    padding: 0 10px
+}
+
+.menu button{
+    margin: 5px 0;
+    padding: 12px 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    cursor: pointer;
+
+    color: var(--white);
+    font-size: large;
+    font-weight: bold;
+}
+
+.menu button:hover{
+    transition: all 200ms ease-in-out;
+    background-color: #ffffff51;
+    color: var(--white);
+}
+
+.menu .selected{
+    
+    border-left: 4px solid var(--secondary);
+    background-color: var(--hover);
+    color: var(--secondary);
+}
+.menu .selected:hover{
+    border-left: 4px solid var(--secondary);
+    background-color: var(--hover);
+    color: var(--secondary);
+}
+
+.menu button .icon {
+    padding-right: 20px;
+    width: 40px;
+}
+
+.line{
+    width: 100%;
+ background-color: #000000;
+ margin: 15px 0;
+
+}
+.starred {
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+}
+.starred small {
+    color: var(--white);
+    padding: 5px 10px;
+}
+
+.pin-card{
+    width: 100%;
+    /* background-color: red; */
+    height: 34vh;
+    max-height: 34vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 5px 10px;
+    overflow-y: auto;
+}
+
+.pin-card > *{
+    margin: 4px 0;
+    width: 100%;
+    display: flex;
+    position: relative;
+
+}
+.card> *{
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    width: 100%;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    background-color: white;    
+}
+.card button:hover{
+    transition: all 300ms ease-in-out;
+    background-color: var(--hover);
+}
+.card button img{
+    object-fit: contain;
+    object-position: center;
+    border: 1px solid var(--secondary);
+    width: 35%;
+    height: 35px;
+    margin-right: 4%;
+}
+.card .star{
+    z-index: 1;
+    position: absolute;
+    background-color: #0000004f;
+    border-radius: 100%;
+    width: fit-content;
+    padding: 5px;
+    top: 30%;
+    right: 5%;
+    cursor: pointer;
+}
+.star:hover{
+    transition: all 300ms ease-in-out;
+    background-color: rgb(251, 230, 202);
+}
+
+
+
+
+/* !MEMBER CSS */
+#member{
+    width: 100%;
+    height: auto;
+    padding: 30px;
+
+}
+/* #member > img {
+    width: 50%;
+
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.inner-card{
+    /* background: red; */
+    /* height: 30rem; */
+    width: 100%;
+    border-radius: 20px;
+}
+
+
+
+.show-image{
+    /* background-color: #df2424; */
+    border: 1px solid var(--secondary);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.show-image img{
+    width: 100%;
+    height: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: contain;
+}
+
+.image-btn{
+    width: 100%;
+    height: 40px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1.5px solid var(--secondary);
+    border-top: 0;
+    position: relative;
+}
+
+.image-btn input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* background-color: #00000062; */
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.image-btn h4{
+    /* background-color: #25B4B2; */
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 8px;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+.for-title{
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.for-title label{
+    color: var(--black);
+    font-size: 16px;text-align: left;
+}
+
+.for-title .valid-title{
+    border: 1.5px solid var(--secondary);
+    border-radius: 10px;
+    outline: 0;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 17px;
+    color: #282828;
+}
+
+
+.for-btn{
+    /* background-color: #0000005f; */
+    width: 100%;
+}
+
+.for-btn button{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: var(--secondary);
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 10px;
+    color: var(--white);
+}
