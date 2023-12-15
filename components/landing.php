@@ -1,7 +1,7 @@
 
     
 <?php
-if(isset($_GET['landing'])){
+if(isset($_POST['islanding'])){
     echo "<main class=\"inner-body\" id=\"landing-page\">";
 ?>
 

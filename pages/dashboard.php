@@ -1,18 +1,41 @@
-<?php
-include "../scripts/dash.php";
-?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../scripts/dashfunction.js"></script>
-    
 
+       <!-- J QUERY -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+
+       <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://kit.fontawesome.com/a3ac451aad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+
+    <script src="../scripts/dashfunction.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth'
+  });
+  calendar.render();
+});
+
+</script>
+    
     <title>Project Orbit | Dashboard</title>
 </head>
-<body>
+<body data-new-gr-c-s-check-loaded="14.1145.0" data-gr-ext-installed>
     <section class="outer-body">
         
     <!-- main content -->
@@ -30,99 +53,14 @@ include "../scripts/dash.php";
                 </button>
 
             </header>
-
+      
+            <section id="for-cal">
+                <div id="calendar" ></div>
+            </section>
             <section class="inner-contents" id="content-show">
-              <!-- show contents of something -->
-
+      
+            <!-- !CONTENTS SHOW -->
                 
-<main class="board" id="board">
-
-
-    <div class="sorter">
-
-        <div>
-            <label for="sort">Sort by</label>
-            <select name="" id="">
-                <option value="">Sort by date</option>
-            </select>
-        </div>
-
-        <div>
-            <button>search</button>
-            <input type="text">
-        </div>
-
-    </div>
-    <div class="cards">
-        <div id="create-proj">
-            <button id="newproj">
-                Create board
-                <i class="fa-regular fa-plus fa-lg create-icon "></i>
-            </button>
-        </div>
-        
-<?php
-   $iduser = 13;
-
-   require "../config/config.php";
-   $syntax = "SELECT projectid, projectname, projectcover FROM project  
-   INNER JOIN user ON userID = adminid WHERE userID = $iduser";
-
-   $result = $conn -> query($syntax);
-
-if($result -> num_rows > 0){
-    while($row = $result->fetch_assoc()){
-?>
-        <!-- cards reapeating -->
-        <div style="background-image: url(<?php echo $row['projectcover']?>);" id="exisproj">
-            <button id="proj<?php echo $row['projectid']?>" value="<?php echo $row['projectid']?>">
-                <?php echo $row['projectname']?>
-            </button>
-            <?php 
-            if(isPinned($iduser, $row['projectid']) != '-1'){
-            ?>
-                <i class="fa-solid fa-star star" style="color: #ffbb00;"></i>
-            <?php
-            }else{
-            ?>
-                <i class="fa-regular fa-star star" style="color: #ffbb00;"></i>
-            <?php
-            }
-            ?>
-        </div>
-<?php
-    }
-}
-?>
-    
-    </div>
-
-</main>
-
-
-
-<?php
-function isPinned($Uid, $pid )
-{
-    
-    require "../config/config.php";
-    $command = "SELECT pinid, uid, projid FROM 
-    pinned_project WHERE projid = '$pid' AND uid = '$Uid'";
-    $result = $conn->query($command);
-    if($result -> num_rows > 0){
-       while($row = $result -> fetch_assoc()){
-            return $row["pinid"];
-       }
-    }
-    $result -> free();
-    return '-1';
-}
-
-
-?>
-
-
-
 
             </section>
         </main>
@@ -171,22 +109,7 @@ function isPinned($Uid, $pid )
 
     </section>
     
-    <div>
-
-
-    </div>
-
-
 </body>
 </html>
-<script>
 
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('cal');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth'
-  });
-  calendar.render();
-});
 
-</script>

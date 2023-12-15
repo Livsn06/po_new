@@ -49,6 +49,7 @@
     color: var(--white);
     text-decoration: none;
     font-size: 17px;
+    cursor: pointer;
 }
 
 #landing-page .hero{

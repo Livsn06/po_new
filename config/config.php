@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbase = "project_orbit";
+$dbase = "proj_orb";
 
 
 $conn = new mysqli($servername, $username, $password, $dbase);

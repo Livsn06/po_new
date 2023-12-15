@@ -1,44 +1,135 @@
 //!signup validation
 
 $(document).ready(function () {
-    $(document).on("keyup","#suser", function(){
-        isUsername("#suser");
-    });
-    $(document).on("keyup","#semail", function(){
-        isEmail("#semail");
-    });
+
     $(document).on("keyup","#spass", function(){
         isPassword("#spass");
     });
-    $(document).on("keyup","#scpass", function(){
-        isConfirm("#spass", "#scpass");
-    });
-
 
     $(document).on("click","#sbtn", function(){
-        if(submitValidation()){
-            resultSignup();
-        }
+        is_Signup();
     });
-  
+    
+    $(document).on("click","#lbtn", function(){
+        alert("sdgsdg");
+        is_Login();
+ 
+    });
+    
 });
 
 
-function resultSignup()
+
+
+function is_Login()
 {
-    var USER = $("#suser").val();
-    var EMAIL = $("#semail").val();
-    var PASS = $("#scpass").val();
-    $.ajax({
-        type: "post",
-        url: "../validation/validation.php",
-        data: {finalSign: "yes", user: USER, email: EMAIL, pass: PASS },
-        success: function (response) {
-            $("#body-content").append(response);
-            $("#modal").remove();
-        }
+    var lid = $("#lid").val();
+    var lpass = $("#lpass").val();
+
+    $.post("../validation/validate.php",
+    {
+        login: "set",
+        id: lid,
+        email: lpass,
+
+    },
+    function (result){
+        $("#modal").html(result);
+        $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
     });
+
 }
+
+
+
+
+
+
+// TODO: NOT FINISH SIGNUP validation
+
+function is_Signup()
+{
+    var sid = $("#sid").val();
+    var semail = $("#semail").val();
+    var spassword = $("#spass").val();
+    var scpassword = $("#scpass").val();
+
+    $.post("../validation/validate.php",
+    {
+        signup: "set",
+        id: sid,
+        email: semail,
+        pass: spassword,
+        cpass: scpassword
+    },
+    function (result){
+        $("#modal").html(result);
+        $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
+    });
+
+}
+
+
+
+
+function isvalid_Email(id)
+{
+    var email = $(id).val().trim();
+    alert(email)
+   if(!email.length == 0){
+    if (mailValidation(email)) {
+        $("#email-field input").css("outline-color", "green");
+        $("#email-field small").text("* valid email");
+        $("#email-field small").css("color", "green");
+        return true;
+    }else{  
+        $("#email-field input").css("outline-color", "red");
+        $("#email-field small").text("* invalid email");
+        $("#email-field small").css("color", "red");
+        return false;
+    }    
+   }else{
+        $("#email-field input").css("outline-color", "red");
+        $("#email-field small").text("* fill this form");
+        $("#email-field small").css("color", "red");
+        return false;
+   }
+}
+
+
+
+
+
+
+
+function is_IDExist(id)
+{
+    var sid = $(id).val().trim();
+    var res = false;
+    if(sid.length == 0){
+        $("#id-field input").css("outline-color", "red");
+        $("#id-field small").text("* fill this form");
+        $("#id-field small").css("color", "red");
+        return false;
+    }else{
+        $("#id-field").load("../validation/validate.php", {isExist: "yes", id: sid});
+    }
+
+}
+
+
+
+
+
+
+
+function mailValidation(val) 
+{
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return expr.test(val)
+
+}
+
 
 
 
@@ -48,7 +139,7 @@ function resultSignup()
 function submitValidation()
 {
     var valid = 0;
-    if(!isUsername("#suser")){
+    if(!isID("#sid")){
         $('#suserindic').text('Username must be at least 5 characters');
         $("#suserindic").css("color", "red");
         $("#suser").css("outline-color", "red");
@@ -83,65 +174,11 @@ function submitValidation()
    return valid == 4;
 }
 
-function isUsername(id)
-{
-    var username = $(id).val();
-
-   if(!username.length <= 0){
-    if (username.length < 5) {
-        $('#suserindic').text('Username must be at least 5 characters');
-        $("#suserindic").css("color", "red");
-        $(id).css("outline-color", "red");
-        return false;
-    }else{  
-        $('#suserindic').text('Username available..');
-        $("#suserindic").css("color", "green");
-        $(id).css("outline-color", "green");
-        return true;
-    }    
-   }else{
-
-    $('#suserindic').text('required..');
-    $("#suserindic").css("color", "orange");
-    $(id).css("outline-color", "green");
-    return false;
-   }
-}
 
 
-function isEmail(id)
-{
-    var email = $(id).val();
-
-   if(!email.length <= 0){
-    if (!mailValidation(email)) {
-        $('#semailindic').text('invalid email.');
-        $("#semailindic").css("color", "red");
-        $(id).css("outline-color", "red");
-        return false;
-    }else{  
-        $('#semailindic').text('email available..');
-        $("#semailindic").css("color", "green");
-        $(id).css("outline-color", "green");
-        return true;
-    }    
-   }else{
-    $('#semailindic').text('required..');
-    $("#semailindic").css("color", "orange");
-    $(id).css("outline-color", "green");
-    return false;
-   }
-}
-
-function mailValidation(val) 
-{
-    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return expr.test(val)
-
-}
 
 
-function isPassword(id)
+function passwordStrength(id)
 {
     var pass = $(id).val();
     var str =  checkPasswordStrength(pass);

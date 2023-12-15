@@ -18,7 +18,7 @@
     justify-content: end;
     max-height: max-content;
     border-radius: 10px;
-    width: 80%;
+    width: 90%;
     box-shadow: 0px 0px 53px 4px rgba(0,0,0,0.23);
     -webkit-box-shadow: 0px 0px 53px 4px rgba(0,0,0,0.23);
     -moz-box-shadow: 0px 0px 53px 4px rgba(0,0,0,0.23);
@@ -26,7 +26,7 @@
 
 #signup-page  .image{
     position: absolute;
-    width: 44%;
+    width: 40%;
     top: 0%;
     left: 5%;
 }
@@ -38,25 +38,22 @@
 
 }
 #signup-page .scroll{
-    overflow-y: overlay;
-    max-height: 13.5rem;
-    padding: 8px 0;
-    margin: 5px 0;
-    scroll-behavior: smooth;
-    border-top: 2px solid #008e8e;
-    border-bottom: 2px solid #008e8e;
-    margin-bottom: 20px;
+    /* overflow-y: overlay; */
+    /* max-height: 13.5rem; */
+    padding: 30px 0;
+    /* scroll-behavior: smooth; */
+    border-top: 2px solid var(--gray);
 }
 
-#signup-page .scroll::-webkit-scrollbar {
+/* #signup-page .scroll::-webkit-scrollbar {
     display: none;
-}
+} */
 #signup-page  .login-info{
     /* background-color: antiquewhite; */
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 #signup-page  .login-info h1{
-    font-size: 32px;
+    font-size: 40px;
     margin-bottom: 10px;
     color: var(--gray);
 }
@@ -65,27 +62,28 @@
     color: var(--gray);
 }
 #signup-page .form{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
 }
 #signup-page  .form label{
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: 3px;
     color: var(--gray);
 }
 #signup-page  .form input{
    border: none;
-   outline: 1.7px solid var(--secondary);
+   outline: 1.7px solid rgb(0, 181, 0);
    padding: 10px 10px;
-   font-size: 15px;
+   font-size: 16px;
    border-radius: 8px;
    border-top-left-radius: 0%;
    border-bottom-right-radius: 0%;
 }
 #signup-page  .form small{
-    font-size: x-small;
-    color: #b97500;
+    font-size: small;
+    color: #00816d;
+    height: 20px;
 }
 
 #signup-page .email-form{
@@ -94,7 +92,7 @@
     margin-bottom: 7px;
 }
 #signup-page .email-form label{
-    font-size: 15px;
+    font-size: 12px;
     margin-bottom: 3px;
     color: var(--gray);
 }
@@ -160,7 +158,7 @@
     border: none;
     outline: none;
     padding: 8px 0;
-    font-size: 15px;
+    font-size: 19px;
     border-radius: 8px;
     border-top-left-radius: 0%;
     border-bottom-right-radius: 0%;
@@ -186,6 +184,7 @@
 }
 #signup-page .dont-form a{
     cursor: pointer;
-    color: aquamarine;
+    font-weight: bold;
+    color: #009938;
 }
 

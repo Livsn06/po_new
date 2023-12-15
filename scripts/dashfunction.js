@@ -1,79 +1,48 @@
 $(document).ready(function () {
     changeNavigation();
-
-    $(document).on("click", "#newproj", function(){
-        $.ajax({
-            type: "post",
-            url: "../components/create.php",
-            success: function (content) {
-                $("#content-show").append(content);
-            }
-        });
-    });
- 
+    showBoard();
 });
-
-
-function showContent(id)
-{
-    var value = $(id).val();
-
-    if(value == "showboard"){
-        $.ajax({
-            type: "post",
-            url: "../components/board.php",
-            data: {board: value},
-            success: function (content) {
-         
-                $("#content-show").append(content);
-     
-            }
-        });
-    }else
-    if(value == "showmember"){
-
-        $.ajax({
-            type: "post",
-            url: "../components/member.php",
-            data: {member: value},
-            success: function (content) {
-          
-                $("#content-show").append(content);
-    
-            }
-        });
-    }else
-    if(value == "showcalendar"){
-        
-        $.ajax({
-            type: "post",
-            url: "../components/calendar.php",
-            data: {calendar: value},
-            success: function (content) {
-         
-                $("#content-show").append(content);
-       
-            }
-        });
-    }
-
-
-}
-
-
 
 
 
 function changeNavigation()
 {
+    $("#calendar").fadeOut(0);
     $(document).on("click", "#navboard", function(){
-
-        showContent("#navboard");
+        $("#calendar").fadeOut(0);
+        $(".menu button").removeClass("selected");
+        $("#navboard").addClass("selected");
+        showBoard();
     });
     $(document).on("click", "#navmember", function(){
-        showContent("#navmember");
+        $("#calendar").fadeOut(0);
+        $(".menu button").removeClass("selected");
+        $("#navmember").addClass("selected");
+        showMember();
+     
     });
     $(document).on("click", "#navcalendar", function(){
-        showContent("#navcalendar");
+        
+        $(".menu button").removeClass("selected");
+        $("#navcalendar").addClass("selected");
+        showCalendar();
     });
+}
+
+function showBoard(){
+    $("#content-show").load("../content/menu.php", {isboard: "yes"}, function(){
+        $("#board").fadeOut(0).fadeIn(500);
+    });
+
+}
+function showMember(){
+    $("#content-show").load("../content/menu.php", {ismember: "yes"}, function(){
+        $("#member").fadeOut(0).fadeIn(500);
+    });
+}
+function showCalendar(){
+    $("#content-show").load("../content/menu.php", {iscalendar: "yes"}, function(){
+        $(" #calendar").fadeIn(500);
+    })
+
 }

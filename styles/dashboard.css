@@ -22,6 +22,7 @@ body{
     /* padding: 2px; */
     width: 100%;
     position: relative;
+    overflow:hidden;
 }
 .outer-body{
     /* background-color: #00000036; */
@@ -31,7 +32,7 @@ body{
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: row-reverse;
-    overflow: hidden;
+
 }
 
 .right-sec{
@@ -40,6 +41,7 @@ body{
     width: 100%;
     display: flex;
     flex-direction: column;
+    
 }
 
 /* navigation (NOTIFICATION/ USER) */
@@ -63,7 +65,7 @@ body{
     outline: none;
     border: 0;
     background-color: var(--secondary);
-    padding: 20px 12px;
+    padding: 12px 12px;
     border-radius: 100%;
     cursor: pointer;
 }
@@ -74,7 +76,7 @@ body{
 
 /* user */
 .user{
-    padding: 5px 0;
+    padding: 8px 0;
     background-color: var(--secondary);    
     outline: none;
     border: 0;
@@ -87,11 +89,12 @@ body{
 }
 .user h1{
     color: white;
+    font-size: medium;
 }
 .user img{
     border:  1px solid red;
     border-radius: 100%;
-    width: 20%;
+    width: 22%;
     height: auto;
     object-fit: contain;
 }
@@ -102,20 +105,24 @@ body{
 
 /* contents dynamic (NOTIFICATION/ USER) */
 .inner-contents{
-    overflow: auto;
-    padding: 40px;
-    
+    /* background-color: orange; */
+    height: max-content;
+    display: block;
+    padding: 5px 10px;
+    overflow-y: auto;
+    max-height: 100vh;
 }
 
 .inner-contents::-webkit-scrollbar {
     background: #fff;
-    width: 10px;
-    height: 15px; 
+    width: 2px;
+    height: 2px; 
 }
-.inner-contents::-webkit-scrollbar-thumb {
-    background: #959595;
 
+.inner-contents::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
 }
+
 
 /* ! BOARD CSS */
 #board{
@@ -213,9 +220,6 @@ transition: all 300ms ease-in-out;
 }
 
 
-
-
-
 #create-proj{
     
    border: 2px solid var(--secondary);
@@ -235,20 +239,21 @@ transition: all 300ms ease-in-out;
 
 
 #newproj{
+    padding: 10px 0;
     color: var(--secondary);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    justify-content: space-evenly;
     
 }
 
 #newproj > *{
-    padding: 15px 0;    
-    color: var(--secondary);
+    border-radius: 100%;
+    background-color: var(--secondary);
+    padding: 8% 5%;    
+    color: var(--white);
 }
-
-
 
 /* ! SIDEBAR */
 .left-sec{
@@ -402,59 +407,62 @@ transition: all 300ms ease-in-out;
 
 
 
-/* !MEMBER CSS */
-#member{
-    width: 100%;
+/* ! CALENDAR   */
+#for-cal{
+    /* background-color: orange; */
     height: auto;
-    padding: 30px;
-
+    display: block;
+    padding: 5px 10px;
+    overflow-y: auto;
+    max-height: 100vh;
 }
-/* #member > img {
-    width: 50%;
 
-} */
+#for-cal::-webkit-scrollbar {
+    background: #fff;
+    width: 2px;
+    height: 2px; 
+}
 
+#for-cal::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+#calendar{
+    margin: 40px 60px;
+    overflow-y: auto;
+    
+}
 
 
 
+/* !Member */
 
-
-
-
-
-
-
+#member{
+    background-color: red;
+    height: 82vh;
+    width: 100%;
+}
 
 
 
 
 
+
+/* 
 
 
 .inner-card{
-    /* background: red; */
-    /* height: 30rem; */
+
+    height: 30rem;
     width: 100%;
     border-radius: 20px;
+   
 }
 
 
 
 .show-image{
-    /* background-color: #df2424; */
+
     border: 1px solid var(--secondary);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -482,7 +490,7 @@ transition: all 300ms ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
-    /* background-color: #00000062; */
+
     cursor: pointer;
     width: 100%;
     height: 100%;
@@ -490,7 +498,7 @@ transition: all 300ms ease-in-out;
 }
 
 .image-btn h4{
-    /* background-color: #25B4B2; */
+
     width: 100%;
     height: 100%;
     text-align: center;
@@ -522,7 +530,7 @@ transition: all 300ms ease-in-out;
 
 
 .for-btn{
-    /* background-color: #0000005f; */
+
     width: 100%;
 }
 
@@ -535,4 +543,4 @@ transition: all 300ms ease-in-out;
     padding: 10px 0;
     border-radius: 10px;
     color: var(--white);
-}
+} */

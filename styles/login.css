@@ -52,22 +52,23 @@
     margin-bottom: 10px;
 }
 #login-page .email-form label{
-    font-size: medium;
+    font-size: 18px;
     margin-bottom: 3px;
     color: var(--gray);
 }
 #login-page .email-form input{
    border: none;
-   outline: 1.7px solid var(--secondary);
+   outline: 1.7px solid rgb(0, 181, 0);
    padding: 10px 10px;
-   font-size: 15px;
+   font-size: 16px;
    border-radius: 8px;
    border-top-left-radius: 0%;
    border-bottom-right-radius: 0%;
 }
 #login-page .email-form small{
-    font-size: x-small;
+    font-size: small;
     color: #b97500;
+    height: 20px;
 }
 
 #login-page .pass-form{
@@ -76,22 +77,23 @@
     margin-bottom: 5px;
 }
 #login-page .pass-form label{
-    font-size: medium;
+    font-size: 18px;
     margin-bottom: 2px;
     color: var(--gray);
 }
 #login-page .pass-form input{
    border: none;
-   outline: 1.7px solid var(--secondary);
+   outline: 1.7px solid rgb(0, 181, 0);
    padding: 10px 10px;
-   font-size: 15px;
+   font-size: 16px;
    border-radius: 8px;
    border-top-left-radius: 0%;
    border-bottom-right-radius: 0%;
 }
 #login-page .pass-form small{
-    font-size: x-small;
+    font-size: small;
     color: #b97500;
+    height: 20px;
 }
 
 #login-page .forgot-form{
@@ -121,7 +123,7 @@
     border-radius: 8px;
     border-top-left-radius: 0%;
     border-bottom-right-radius: 0%;
-
+    cursor: pointer;
     color: var(--gray);
     background-color: var(--secondary);
 }

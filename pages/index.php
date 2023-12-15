@@ -1,5 +1,9 @@
 <?php
     include "../scripts/includes.php";
+    // session_start();
+    // if(isset($_SESSION['activeAccount'])){
+    //     header("Location: dashboard.php");
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@
             <li class="login"><a id="vanlogin">Login</a></li>
         </div>  
     </header>
-    
+    <div id="modal"></div>
     <section class="contents" id="body-content">
         
     </section>
