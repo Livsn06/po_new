@@ -2,6 +2,11 @@
 
 $(document).ready(function () {
 
+    $(document).on("keyup","#lid",function () { 
+        $("#lid").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#lid small").css({"color" : "rgb(0, 181, 0)"});
+        $("#lid small").text("");
+    });
     $(document).on("keyup","#spass", function(){
         isPassword("#spass");
     });
@@ -11,7 +16,6 @@ $(document).ready(function () {
     });
     
     $(document).on("click","#lbtn", function(){
-        alert("sdgsdg");
         is_Login();
  
     });
@@ -26,21 +30,36 @@ function is_Login()
     var lid = $("#lid").val();
     var lpass = $("#lpass").val();
 
-    $.post("../validation/validate.php",
-    {
-        login: "set",
-        id: lid,
-        email: lpass,
 
-    },
-    function (result){
-        $("#modal").html(result);
-        $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
-    });
+    if(lid.length === 0 || lpass.length === 0){
+        // show modal empty field
+        $("#modal").load("../validation/validate.php", {emptyLoginfieldModal: "yes"});
+         //  id form change
+        (lid.length === 0 && !(lpass.length === 0))?  $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", id: lid}):
+            //  password form change
+        (lpass.length === 0 && !(lid.length === 0 ))?  $("#lpass-field").load("../validation/validate.php", {emptyPassinput: "yes", pass: lpass}):"";
+        
+        if(lpass.length === 0 && lid.length === 0 ){
+             //  both form change
+            $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", id: lid});
+            $("#lpass-field").load("../validation/validate.php", {emptyPassinput: "yes", pass: lpass});
+        }
 
+    }else{
+        $.post("../validation/validate.php",
+        {
+            login: "set",
+            id: lid,
+            pass: lpass,
+    
+        },
+        function (result){
+            $("#modal").html(result);
+            $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
+        });
+    
+    }
 }
-
-
 
 
 
@@ -68,7 +87,6 @@ function is_Signup()
     });
 
 }
-
 
 
 

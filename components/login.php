@@ -10,17 +10,18 @@ if(isset($_POST['islogin'])){
                 <h1>Login</h1>
                 <p>Log in now to innovate and organize with ease. Let's launch your success together!</p>
             </div>
-           <div class="email-form" id="lid-field">
-                <label for="id">ID Number</label>
-                <input type="text" placeholder="enter your ID" id="lid">
-                <small class=""></small>
-           </div>
-            <div class="pass-form" id="lpass-field">
-                <label for="password">Password</label>
-                <input type="password" placeholder="enter your password" id="lpass">
-                <small class=""></small>
-            </div>
-
+    
+                    <div class="email-form" id="lid-field">
+                        <label for="id">ID Number</label>
+                        <input type="text" placeholder="enter your ID" id="lid">
+                        <small class=""></small>
+                    </div>
+                    <div class="pass-form" id="lpass-field">
+                        <label for="password">Password</label>
+                        <input type="password" placeholder="enter your password" id="lpass">
+                        <small class=""></small>
+                    </div>
+                    
             <div class="forgot-form">
                 <a href="">forgot password?</a>
             </div>

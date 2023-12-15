@@ -120,16 +120,181 @@ if(isset($_POST['signup'])){
 ?>
 
 
-<!--! FOR SINGING UP -->
+<!--! FOR login  -->
 <?php
 
 if(isset($_POST['login'])){
     $nid = strtoupper(trim($_POST['id']));
     $npass = $_POST['pass'];
 
+    if(!isnotRegistered_Student($nid)){
+        
+        if(isCorrect_Email_and_Pass($nid, $npass, "student")){
+            echo'
+            <script>
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login Success",
+                text: "Redirecting....",
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                window.location.href = "dashboard.php";
+              });
+            </script>
+            ';
+
+        }else{
+            echo'
+            <script>
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Wrong id or password",
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+            ';
+        }
+        
+    }else if(!isnotRegistered_Instructor($nid)){
+        
+        
+        if(isCorrect_Email_and_Pass($nid, $npass, "instructor")){
+            echo'
+            <script>
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Login Success",
+                text: "Redirecting....",
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                window.location.href = "dashboard.php";
+              });
+            </script>
+            ';
+
+        }else{
+           echo'
+            <script>
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Wrong id or password",
+                showConfirmButton: false,
+                timer: 1500
+              })
+            </script>
+            ';
+        }
+
+
+    }else{
+        echo'
+        <script>
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "'.$nid.'",
+            text: "Your id is not registered or its not available..",
+            showConfirmButton: true,
+          })
+        </script>
+        '; 
+    }
+
 }
 
+if(isset($_POST["emptyLoginfieldModal"])){
+    echo'
+    <script>
+    Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Empty field",
+        text: "Please input all required field..",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    </script>
+    '; 
+}
+
+if(isset($_POST["emptyIDinput"])){
+    $id = $_POST['id'];
+    echo'
+    <label for="id">ID Number</label>
+    <input type="text" placeholder="enter your ID" id="lid" style="outline-color: red; color:red;" value="'.$id.'">
+    <small class="" style="color: red;">*required field</small>
+    '; 
+}
+
+
+if(isset($_POST["emptyPassinput"])){
+    $pass = $_POST['pass'];
+    echo'
+    <label for="password">Password</label>
+    <input type="password" placeholder="enter your password" id="lpass" style="outline-color: red; color:red;" value="'.$pass.'">
+    <small class="" style="color: red;">*required field</small>
+    '; 
+}
+
+
+
+
 ?>
+
+<?php
+
+function isCorrect_Email_and_Pass($id, $pass, $role)
+{
+    if($role == "student"){
+        require "../config/config.php";
+        $syntax = "SELECT studid, studpassword FROM studentreg WHERE studid = '$id'";
+        $result = $conn -> query($syntax);
+        if($result -> num_rows > 0){
+            while($data = $result -> fetch_assoc()){
+                if($data['studpassword'] == sha1($pass)){
+                    $result->free();
+                    $conn -> close();
+                    return true;
+                }
+            }
+        }
+        $result->free();
+        $conn -> close();
+        return false;
+
+    }else if ($role == "instructor"){
+
+        require "../config/config.php";
+        $syntax = "SELECT instrid, instrpassword FROM instructorreg WHERE instrid = '$id'";
+        $result = $conn -> query($syntax);
+        if($result -> num_rows > 0){
+            while($data = $result -> fetch_assoc()){
+                if($data['instrpassword'] == sha1($pass)){
+                    $result->free();
+                    $conn -> close();
+                    return true;
+                }
+            }
+        }
+        $result->free();
+        $conn -> close();
+        return false;
+    }
+}
+
+
+
+
+?>
+
+
 
 
 

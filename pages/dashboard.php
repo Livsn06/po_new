@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <title>Project Orbit | Dashboard</title>
 </head>
-<body data-new-gr-c-s-check-loaded="14.1145.0" data-gr-ext-installed>
+<body>
     <section class="outer-body">
         
     <!-- main content -->
