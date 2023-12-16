@@ -58,7 +58,7 @@ if(isset($_POST['login'])){
                 position: "center",
                 icon: "success",
                 title: "Login Success",
-                text: "Redirecting as instructor account...",
+                text: "redirecting as instructor account...",
                 showConfirmButton: false,
                 timer: 1500
               }).then(() => {
@@ -88,8 +88,8 @@ if(isset($_POST['login'])){
         Swal.fire({
             position: "center",
             icon: "error",
-            title: "'.$nid.'",
-            text: "This email is not registered..  ",
+            title: "Can\'t find this account",
+            text: "this email is not registered..  ",
             showConfirmButton: true,
           })
         </script>
@@ -185,7 +185,7 @@ if(isset($_POST["emptyLoginfieldModal"])){
         position: "center",
         icon: "error",
         title: "Empty field",
-        text: "Please input all required field..",
+        text: "please input all required field..",
         showConfirmButton: false,
         timer: 2000
       })
@@ -230,7 +230,7 @@ if(isset($_POST["invalidemail"])){
         position: "center",
         icon: "error",
         title: "Invalid Email",
-        text: "Please enter a valid email address..",
+        text: "please enter a valid email address..",
         showConfirmButton: false,
         timer: 2000
       })
@@ -395,19 +395,6 @@ function isCorrect_Pass($email,$pass, $role)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--! FOR SINGING UP -->
 <?php
 
@@ -449,7 +436,8 @@ if(isset($_POST['signup'])){
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "'.$nid.' does not exist",
+                title: "ID does not exist",
+                text: "can\'t find person id '.$nid.'",
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -477,8 +465,10 @@ if(isset($_POST['signup'])){
             $role = "student";
             signup_Account($nid, $nemail, $npass, $role);
 
+            
             session_start();
-            $_SESSION['activeAccount'] = $nid;
+            $_SESSION['studLogin'] = $nemail;
+            $_SESSION['instrLogin'] = null;
 
             echo'
             
@@ -491,7 +481,7 @@ if(isset($_POST['signup'])){
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    window.location.href = "dashboard.php";
+                    window.location.href = "student.php";
                 });
             </script>
             ';
@@ -501,9 +491,10 @@ if(isset($_POST['signup'])){
             $role = "instructor";
             
             signup_Account($nid, $nemail, $npass, $role);
-
+            
             session_start();
-            $_SESSION['activeAccount'] = $nid;
+            $_SESSION['studLogin'] = null;
+            $_SESSION['instrLogin'] = $nemail;
 
             echo'
             <script>
@@ -526,14 +517,100 @@ if(isset($_POST['signup'])){
   
 }
 
+
+// 
+
+// invalid email
+if(isset($_POST["signupinvalidEmail"])){
+    $email = $_POST['email'];
+    echo'
+    <script>
+    Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Invalid Email",
+        text: "please enter a valid email address..",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    </script>
+    '; 
+}
+
+
+if(isset($_POST["signuperroremailFormat"])){
+    $email = $_POST['email'];
+    echo'
+    <label for="email">Email</label>
+    <input type="email" placeholder="enter your email" id="semail"  style="outline-color: red; color:red;" value="'.$email.'">
+    <small id="semailindic" style="color: red;">* invalid email</small>
+    '; 
+}
+
+// empty
+if(isset($_POST["sidEmpty"])){
+    echo'
+    <label for="email">ID Number</label>
+    <input type="text" placeholder="enter your school id" id="sid"  style="outline-color: red; color:red;" value="">
+    <small id="sidindic" style="color: red;">* required field</small>
+    '; 
+}
+if(isset($_POST["semailEmpty"])){
+    echo'
+    <label for="email">Email</label>
+    <input type="email" placeholder="enter your email" id="semail" style="outline-color: red; color:red;" value="">
+    <small id="semailindic" style="color: red;">* required field</small>
+    '; 
+}
+if(isset($_POST["spassEmpty"])){
+    echo'
+    <label for="password">Password</label>
+    <input type="password" placeholder="enter your password" id="spassw" style="outline-color: red; color:red;" value="">
+    <small id="spassindic" style="color: red;">* required field</small>
+    '; 
+}
+if(isset($_POST["scpassEmpty"])){
+    echo'
+    <label for="password">Confirm Password</label>
+    <input type="password" placeholder="confirm your password" id="scpass" style="outline-color: red; color:red;" value="">
+    <small id="scpassindicate" style="color: red;">* required field</small>    
+    '; 
+}
+
+if(isset($_POST["validatepasscount"])){
+    $pass = $_POST['pass'];
+    echo'
+    <label for="password">Password</label>
+    <input type="password" placeholder="enter your password" id="spassw" style="outline-color: red; color:red;" value="'.$pass.'">
+    <small id="spassindic" style="color: red;">* input password atleast 8 characters</small>
+    '; 
+}
 ?>
-
-
-
 
 <?php
 
 function signup_Account($id, $email, $pass, $role)
+{
+    
+    $pass = sha1($pass);
+
+    require "../config/config.php";
+    if ($role === "student") {
+        $syntax = "INSERT INTO studentreg (studid, studemail,studpassword) VALUES ('$id', '$email', '$pass')";
+        $conn -> query($syntax);
+    }
+    else if($role === "instructor"){
+        $fname = ucfirst(trim(isInstructor_Fetcht($id, "allinstrfname")));
+        $lname = ucfirst(trim(isInstructor_Fetcht($id, "allinstrlname")));
+        $syntax = "INSERT INTO instructorreg (instrid, instremail, instrpassword, instrfname, instrlname) VALUES ('$id', '$email', '$pass', '$fname', '$lname')";
+        $conn -> query($syntax);
+    }
+
+    $conn->close();
+   
+}
+
+function signup_AccountInstructor($id, $email, $pass, $role)
 {
     
     $pass = sha1($pass);
@@ -552,6 +629,24 @@ function signup_Account($id, $email, $pass, $role)
    
 }
 
+function isInstructor_Fetcht($id, $dbasecolumn)
+{
+    $uid = trim(strtoupper($id));
+
+    $data = null;
+    require "../config/config.php";
+    $syntax = "SELECT $dbasecolumn FROM overallinstructor WHERE allinstrid = '$uid'";
+    $result = $conn -> query($syntax);
+    if($result -> num_rows > 0){
+        while($row = $result -> fetch_array()){
+            $data = $row[0];
+            $result->free();
+            $conn -> close();
+            return $data;
+        }
+    }
+    return $data;
+}
 
 
 

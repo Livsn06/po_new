@@ -1,7 +1,7 @@
 <!-- FOR STUDENT  -->
 
 <?php
-// session_start();
+session_start();
 // if not log in ung session ng student page babalik sa landing page
 if(!isset($_SESSION['studLogin'])){
     header("Location: index.php");
@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
     <title>Project Orbit | Home</title>
 </head>
 <body>
+
+ <!-- this is only temporary  logout button -->
+ <button ><a href="../logout.php">Logout</a> </button>
+
+
     <section class="outer-body">
         
     <!-- main content -->

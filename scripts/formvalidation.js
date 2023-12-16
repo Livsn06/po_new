@@ -2,16 +2,7 @@
 
 $(document).ready(function () {
 
-    $(document).on("keyup","#lemail",function () { 
-        $("#lemail").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
-        $("#lid-field small").css({"color" : "rgb(0, 181, 0)"});
-        $("#lid-field small").text("");
-    });
-    $(document).on("keyup","#lpass",function () { 
-        $("#lpass").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
-        $("#lpass-field small").css({"color" : "rgb(0, 181, 0)"});
-        $("#lpass-field small").text("");
-    });
+
     $(document).on("keyup","#spass", function(){
         isPassword("#spass");
     });
@@ -24,6 +15,8 @@ $(document).ready(function () {
         is_Login();
  
     });
+    loginKeypress_Functionality();
+    signupKeypress_Functionality();
     
 });
 
@@ -78,6 +71,19 @@ function is_Login()
 }
 
 
+function loginKeypress_Functionality()
+{
+    $(document).on("keyup","#lemail",function () { 
+        $("#lemail").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#lid-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#lid-field small").text("");
+    });
+    $(document).on("keyup","#lpass",function () { 
+        $("#lpass").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#lpass-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#lpass-field small").text("");
+    });
+}
 
 
 
@@ -96,23 +102,97 @@ function is_Signup()
 {
     var sid = $("#sid").val();
     var semail = $("#semail").val();
-    var spassword = $("#spass").val();
+    var spassword = $("#spassw").val();
     var scpassword = $("#scpass").val();
 
-    $.post("../validation/validate.php",
-    {
-        signup: "set",
-        id: sid,
-        email: semail,
-        pass: spassword,
-        cpass: scpassword
-    },
-    function (result){
-        $("#modal").html(result);
-        $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
-    });
+
+    // VALIDATE EMPTY FIELD
+    if(semail.length === 0 || spassword.length === 0 ||  scpassword.length === 0  ||  sid.length === 0){
+
+        $("#modal").load("../validation/validate.php", {emptyLoginfieldModal: "yes"});
+
+        if(sid.length === 0){
+            $("#id-field").load("../validation/validate.php", {sidEmpty: "yes", id: sid});
+        }
+
+        if(semail.length === 0){
+            $("#email-field").load("../validation/validate.php", {semailEmpty: "yes", email: semail});
+        }
+
+        if(spassword.length === 0){
+            $("#spass-field").load("../validation/validate.php", {spassEmpty: "yes", pass: spassword});
+        }
+
+        if(scpassword.length === 0){
+            $("#cpass-field").load("../validation/validate.php", {scpassEmpty: "yes", cpass: scpassword});
+        }
+
+    } else 
+    if(!mailValidation(semail.trim()) ){
+
+        $("#modal").load("../validation/validate.php", {signupinvalidEmail: "yes", email: semail});
+
+        $("#email-field").load("../validation/validate.php", {signuperroremailFormat: "yes", email: semail});
+
+
+    }else if (spassword.length < 8 ){
+
+        $("#spass-field").load("../validation/validate.php", {validatepasscount: "yes", pass: spassword});
+
+    }else{
+        $.post("../validation/validate.php",
+        {
+            signup: "set",
+            id: sid,
+            email: semail,
+            pass: spassword,
+            cpass: scpassword
+        },
+        function (result){
+            $("#modal").html(result);
+            $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
+        });
+    }
 
 }
+
+
+function signupKeypress_Functionality()
+{
+    $(document).on("keyup","#semail",function () { 
+        $("#semail").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#email-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#email-field small").text("");
+    });
+
+    $(document).on("keyup","#sid",function () { 
+        $("#sid").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#id-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#id-field small").text("");
+    });
+
+    $(document).on("keyup","#spassw",function () {
+        $("#spassw").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#spass-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#spass-field small").text("");
+    });
+
+    $(document).on("keyup","#scpass",function () {
+        passwordStrength('#scpass', '#scpassindicate');
+    });
+    $(document).on("keyup","#spassw",function () {
+        passwordStrength('#spassw', '#spassindic');
+    });
+
+
+
+    $(document).on("keyup","#scpass",function () {
+        $("#scpass").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#cpass-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#cpass-field small").text("");
+    });
+}
+
 
 
 
@@ -170,73 +250,73 @@ function is_IDExist(id)
 
 
 
-function submitValidation()
-{
-    var valid = 0;
-    if(!isID("#sid")){
-        $('#suserindic').text('Username must be at least 5 characters');
-        $("#suserindic").css("color", "red");
-        $("#suser").css("outline-color", "red");
-   }else{
-    valid +=1 ;
-   }
-   if(!isEmail("#semail")){
-        $('#semailindic').text('invalid email.');
-        $("#semailindic").css("color", "red");
-        $("#semail").css("outline-color", "red");
+// function submitValidation()
+// {
+//     var valid = 0;
+//     if(!isID("#sid")){
+//         $('#suserindic').text('Username must be at least 5 characters');
+//         $("#suserindic").css("color", "red");
+//         $("#suser").css("outline-color", "red");
+//    }else{
+//     valid +=1 ;
+//    }
+//    if(!isEmail("#semail")){
+//         $('#semailindic').text('invalid email.');
+//         $("#semailindic").css("color", "red");
+//         $("#semail").css("outline-color", "red");
 
-   }else{
-    valid +=1 ;
-    }
-   if(!isPassword("#spass")){
-        $('#spassindic').text("invalid password");
-        $("#spassindic").css("color", "red");
-        $("#spass").css("outline-color", "red");
+//    }else{
+//     valid +=1 ;
+//     }
+//    if(!isPassword("#spass")){
+//         $('#spassindic').text("invalid password");
+//         $("#spassindic").css("color", "red");
+//         $("#spass").css("outline-color", "red");
 
-   }else{
-    valid +=1 ;
-    }
+//    }else{
+//     valid +=1 ;
+//     }
    
-    if(!isConfirm("#spass", "#scpass")){
-        $('#scpassindic').text("invalid confirmation");
-        $("#scpassindic").css("color", "red");
-        $("#scpass").css("outline-color", "red");
+//     if(!isConfirm("#spass", "#scpass")){
+//         $('#scpassindic').text("invalid confirmation");
+//         $("#scpassindic").css("color", "red");
+//         $("#scpass").css("outline-color", "red");
   
-    }else{
-        valid +=1 ;
-    }
-   return valid == 4;
-}
+//     }else{
+//         valid +=1 ;
+//     }
+//    return valid == 4;
+// }
 
 
 
 
 
-function passwordStrength(id)
+function passwordStrength(id , indicid)
 {
     var pass = $(id).val();
     var str =  checkPasswordStrength(pass);
    if(!pass.length <= 0){
     if (str < 2) {
-        $('#spassindic').text('weak password');
-        $("#spassindic").css("color", "orange");
-        $(pass).css("outline-color", "orange");
+        $(indicid).text('weak password');
+        $(indicid).css("color", "#d6612f");
+        $(pass).css("outline-color", "#d6612f");
         return true;
     }else if(str < 3){  
-        $('#spassindic').text('medium password');
-        $("#spassindic").css("color", "yellow");
-        $(pass).css("outline-color", "yellow");
+        $(indicid).text('medium password');
+        $(indicid).css("color", "#918d1c");
+        $(pass).css("outline-color", "#918d1c");
         return true;
     } else if(str < 4){
-        $('#spassindic').text('strong password');
-        $("#spassindic").css("color", "green");
-        $(id).css("outline-color", "green");
+        $(indicid).text('strong password');
+        $(indicid).css("color", "#128703");
+        $(id).css("outline-color", "#128703");
         return true;
     }  
    }else{
-    $('#spassindic').text("required");
-    $("#spassindic").css("color", "orange");
-    $(pass).css("outline-color", "green");
+    $(indicid).text("");
+    $(indicid).css("color", "#2fb004");
+    // $(pass).css("outline-color", "green");
     return false;
    }
 }

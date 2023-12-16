@@ -1,7 +1,7 @@
 <!-- FOR INSTRUCTOR -->
 
 <?php
-// session_start();
+session_start();
 
 // if not log in ung session ng instructor page babalik sa landing page
 if(!isset($_SESSION['instrLogin'])){
@@ -48,10 +48,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-    
+
+
+
+
+
+
+
+
     <title>Project Orbit | Dashboard</title>
 </head>
 <body>
+
+ <!-- this is only temporary  logout button -->
+<button ><a href="../logout.php">Logout</a> </button>
+
+
     <section class="outer-body">
         
     <!-- main content -->
@@ -82,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
         </main>
 
         <!-- SIDEBAR -->
-        <main class="left-sec">    
+        <main class="left-sec"> 
+                  
             <aside class="sidebar">
                 <button class="logo">
                     <img src="../images/logo_2.png" alt="">

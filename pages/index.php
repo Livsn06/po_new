@@ -1,7 +1,7 @@
 <?php
     include "../scripts/includes.php";
 
-    // session_start();
+    session_start();
     // if  log in ung session ng student page babalik sa home page
     if(isset($_SESSION['studLogin'])){
         header("Location: home.php");

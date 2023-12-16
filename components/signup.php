@@ -27,15 +27,15 @@ if(isset($_POST['issignup'])){
                             <small id="semailindic"></small>
                         </div>
 
-                        <div class="form">
+                        <div class="form" id="spass-field">
                             <label for="password">Password</label>
-                            <input type="password" placeholder="enter your password" id="spass" value="">
+                            <input type="password" placeholder="enter your password" id="spassw" value="">
                             <small id="spassindic"></small>
                         </div>
-                        <div class="form">
+                        <div class="form" id="cpass-field">
                             <label for="password">Confirm Password</label>
                             <input type="password" placeholder="confirm your password" id="scpass" value="">
-                            <small id="scpassindic"></small>
+                            <small id="scpassindicate"></small>
                         </div>
                     </div>
 
