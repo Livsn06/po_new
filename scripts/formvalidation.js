@@ -2,10 +2,15 @@
 
 $(document).ready(function () {
 
-    $(document).on("keyup","#lid",function () { 
-        $("#lid").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
-        $("#lid small").css({"color" : "rgb(0, 181, 0)"});
-        $("#lid small").text("");
+    $(document).on("keyup","#lemail",function () { 
+        $("#lemail").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#lid-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#lid-field small").text("");
+    });
+    $(document).on("keyup","#lpass",function () { 
+        $("#lpass").css({"color" : "black", "outline-color" : "rgb(0, 181, 0)"});
+        $("#lpass-field small").css({"color" : "rgb(0, 181, 0)"});
+        $("#lpass-field small").text("");
     });
     $(document).on("keyup","#spass", function(){
         isPassword("#spass");
@@ -27,40 +32,61 @@ $(document).ready(function () {
 
 function is_Login()
 {
-    var lid = $("#lid").val();
+    var lemail = $("#lemail").val();
     var lpass = $("#lpass").val();
 
 
-    if(lid.length === 0 || lpass.length === 0){
+    if(lemail.length === 0 || lpass.length === 0){
         // show modal empty field
         $("#modal").load("../validation/validate.php", {emptyLoginfieldModal: "yes"});
          //  id form change
-        (lid.length === 0 && !(lpass.length === 0))?  $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", id: lid}):
+        (lemail.length === 0 && !(lpass.length === 0))?  $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", email: lemail}):
             //  password form change
-        (lpass.length === 0 && !(lid.length === 0 ))?  $("#lpass-field").load("../validation/validate.php", {emptyPassinput: "yes", pass: lpass}):"";
+        (lpass.length === 0 && !(lemail.length === 0 ))?  $("#lpass-field").load("../validation/validate.php", {emptyPassinput: "yes", pass: lpass}):"";
         
-        if(lpass.length === 0 && lid.length === 0 ){
+        if(lpass.length === 0 && lemail.length === 0 ){
              //  both form change
-            $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", id: lid});
+            $("#lid-field").load("../validation/validate.php", {emptyIDinput: "yes", email: lemail});
             $("#lpass-field").load("../validation/validate.php", {emptyPassinput: "yes", pass: lpass});
         }
+  
+    } else 
+    if(!mailValidation(lemail.trim()) ){
+
+        $("#modal").load("../validation/validate.php", {invalidemail: "yes", email: lemail});
+        $("#lid-field").load("../validation/validate.php", {erroremailFormat: "yes", email: lemail});
+
 
     }else{
         $.post("../validation/validate.php",
         {
             login: "set",
-            id: lid,
+            email: lemail,
             pass: lpass,
     
         },
         function (result){
             $("#modal").html(result);
             $("#modal").load("../validation/validate.php", {emtyModal: "yes"});
+
+            $("#lid-field").load("../validation/validate.php", {validateEmailinput: "yes", email: lemail, pass: lpass});
+
+            $("#lpass-field").load("../validation/validate.php", {validatePassinput: "yes", email: lemail, pass: lpass});
         });
     
     }
 }
 
+
+
+
+
+function mailValidation(val) 
+{
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return expr.test(val)
+
+}
 
 
 
@@ -137,16 +163,6 @@ function is_IDExist(id)
 
 
 
-
-
-
-
-function mailValidation(val) 
-{
-    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return expr.test(val)
-
-}
 
 
 

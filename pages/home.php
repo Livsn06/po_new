@@ -1,5 +1,16 @@
+<!-- FOR STUDENT  -->
+
 <?php
-include "../scripts/dash.php";
+// session_start();
+// if not log in ung session ng student page babalik sa landing page
+if(!isset($_SESSION['studLogin'])){
+    header("Location: index.php");
+}
+// if not log in as student pero naka log in as instructor babalik sya sa dashboard page
+if(isset($_SESSION['instrLogin'])){
+    header("Location: dashboard.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -7,9 +18,36 @@ include "../scripts/dash.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../scripts/dashfunction.js"></script>
 
-    <title>Project Orbit | Dashboard</title>
+       <!-- J QUERY -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- DATATABLES -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+
+       <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://kit.fontawesome.com/a3ac451aad.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+
+    <script src="../scripts/dashfunction.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth'
+  });
+  calendar.render();
+});
+
+</script>
+    
+    <title>Project Orbit | Home</title>
 </head>
 <body>
     <section class="outer-body">
@@ -29,12 +67,15 @@ include "../scripts/dash.php";
                 </button>
 
             </header>
-
+      
+            <section id="for-cal">
+                <div id="calendar" ></div>
+            </section>
             <section class="inner-contents" id="content-show">
-              <!-- show contents of something -->
-                <main class="member" id="member">
-                      <img src="../images/member.png" alt="image" width="850">
-                </main>
+      
+            <!-- !CONTENTS SHOW -->
+                
+
             </section>
         </main>
 
@@ -48,14 +89,14 @@ include "../scripts/dash.php";
                 <div class="menu">
                    <small> Main menu</small>
 
-                   <button  id="navboard" value="showboard">
+                   <button class="selected" id="navboard" value="showboard">
                    <i class="fa-solid fa-folder-closed fa-lg icon"></i>
                         Board
                    </button>
-                   <button class="selected" id="navmember" value="showmember">
+                   <!-- <button id="navmember" value="showmember">
                    <i class="fa-solid fa-user-group fa-lg icon "></i>
                         Members
-                   </button>
+                   </button> -->
                    <button id="navcalendar" value="showcalendar">
                    <i class="fa-solid fa-calendar-days fa-lg icon"></i>
                         Calendar
@@ -81,7 +122,8 @@ include "../scripts/dash.php";
         </main>
 
     </section>
-
-
+    
 </body>
 </html>
+
+

@@ -3,7 +3,7 @@
 
 
 $(document).ready(function(){
-    show_login();
+    show_landing();
    $(document).on("click", "#vanlogin, #gotoLog, #llogin", function(){
     show_login();
    });

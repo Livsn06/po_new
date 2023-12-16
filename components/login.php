@@ -12,8 +12,8 @@ if(isset($_POST['islogin'])){
             </div>
     
                     <div class="email-form" id="lid-field">
-                        <label for="id">ID Number</label>
-                        <input type="text" placeholder="enter your ID" id="lid">
+                        <label for="id">Email</label>
+                        <input type="text" placeholder="enter your email" id="lemail">
                         <small class=""></small>
                     </div>
                     <div class="pass-form" id="lpass-field">

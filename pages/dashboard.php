@@ -1,3 +1,19 @@
+<!-- FOR INSTRUCTOR -->
+
+<?php
+// session_start();
+
+// if not log in ung session ng instructor page babalik sa landing page
+if(!isset($_SESSION['instrLogin'])){
+    header("Location: index.php");
+}
+// if not log in as instructor pero naka log in as student babalik sya sa student homepage
+if(isset($_SESSION['studLogin'])){
+    header("Location: home.php");
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
